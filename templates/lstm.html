@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>LSTM Analysis - {{ symbol }}</title>
+</head>
+<body>
+    <h1>LSTM Analysis for {{ symbol }}</h1>
+
+    <img src="data:image/png;base64,{{ plot_data }}" alt="LSTM Plot">
+
+    <p><a href="{{ url_for('coin_detail', symbol=symbol) }}">Back to coin detail</a></p>
+</body>
+</html>

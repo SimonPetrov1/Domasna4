@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>CryptoVault - Help</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='help.css') }}">
+</head>
+<body>
+
+<header class="nav">
+  <div class="container nav-inner">
+    <div class="logo">CryptoVault</div>
+    <nav class="nav-links">
+      <a href="{{ url_for('index') }}">Home</a>
+      <a href="{{ url_for('markets') }}">Markets</a>
+      <a href="{{ url_for('help_page') }}">Help</a>
+    </nav>
+     <div class="nav-actions">
+  <button class="lang-btn">EN ▾</button>
+
+  {% if session.get('user') %}
+    <a href="{{ url_for('profile') }}" class="nav-username">
+      Hi, {{ session['user'] }}
+    </a>
+    <a class="btn btn-outline-secondary" href="{{ url_for('logout') }}">Logout</a>
+  {% else %}
+    <a class="btn btn-primary" href="{{ url_for('login') }}">Login</a>
+  {% endif %}
+</div>
+  </div>
+</header>
+
+<main>
+  <section class="help-hero">
+    <div class="container">
+      <h1>Help & User Guide</h1>
+      <p>Learn how to use CryptoVault to explore coins, view charts, and track the market.</p>
+    </div>
+  </section>
+
+  <section class="help-section">
+    <div class="container help-cards">
+      <div class="help-card">
+        <h3>Home</h3>
+        <p>Overview of the market, top coins and quick links.</p>
+      </div>
+      <div class="help-card">
+        <h3>Markets</h3>
+        <p>Browse all coins, search, filter and sort.</p>
+      </div>
+      <div class="help-card">
+        <h3>Coin detail</h3>
+        <p>Full chart, statistics and history for one coin.</p>
+      </div>
+      <div class="help-card">
+        <h3>Login & Register</h3>
+        <p>Sign in with your account to access all features.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <div class="footer-left">
+      <div class="logo">CryptoVault</div>
+      <p>2021 CoinVault. All rights reserved.</p>
+    </div>
+    <div class="footer-links">
+      <a href="{{ url_for('index') }}">Home</a>
+     <a href="{{ url_for('markets') }}">Markets</a>
+      <a href="{{ url_for('help_page') }}">Help</a>
+    </div>
+    <div class="footer-social">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

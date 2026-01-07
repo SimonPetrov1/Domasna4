@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>CryptoVault</title>
+  <link rel="stylesheet" href="../static/home.css" />
+</head>
+<body>
+<header class="nav">
+  <div class="container nav-inner">
+    <div class="logo">CryptoVault</div>
+    <nav class="nav-links">
+      <a href="{{ url_for('index') }}">Home</a>
+     <a href="{{ url_for('markets') }}">Markets</a>
+      <a href="{{ url_for('help_page') }}">Help</a>
+    </nav>
+  <div class="nav-actions">
+  <button class="lang-btn">EN ▾</button>
+
+  {% if session.get('user') %}
+    <a href="{{ url_for('profile') }}" class="nav-username">
+      Hi, {{ session['user'] }}
+    </a>
+    <a class="btn btn-outline-secondary" href="{{ url_for('logout') }}">Logout</a>
+  {% else %}
+    <a class="btn btn-primary" href="{{ url_for('login') }}">Login</a>
+  {% endif %}
+</div>
+
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="container">
+
+      <div class="hero-main-text">
+        <h1>Track Every Crypto Coin with Live Charts</h1>
+        <p>Browse prices, charts and key stats for hundreds of cryptocurrencies in a clean, easy-to-use dashboard.</p>
+      </div>
+
+      <div class="hero-bottom">
+        <div class="hero-explore">
+          <h1>Explore & Learn About Cryptocurrency</h1>
+          <p>Your trusted source for cryptocurrency information and market insights. Discover the latest trends, prices and educational resources.</p>
+          <button class="btn btn-primary">Explore Markets</button>
+
+          <div class="hero-icons">
+  <div class="icon">
+    <img src="{{ url_for('static', filename='securedata.png') }}" alt="Secure data">
+    <p>Secure Data</p>
+  </div>
+  <div class="icon">
+    <img src="{{ url_for('static', filename='realtime.png') }}" alt="Real-time updates">
+    <p>Real-time Updates</p>
+  </div>
+  <div class="icon">
+    <img src="{{ url_for('static', filename='analytics.png') }}" alt="Market insights">
+    <p>Market Insights</p>
+  </div>
+</div>
+
+        </div>
+
+       <div class="hero-card">
+  <h3>Market Overview</h3>
+  <ul>
+    {% for symbol, data in top3_price %}
+      <li>
+        <span class="dot {% if loop.index == 1 %}dot-orange{% elif loop.index == 2 %}dot-blue{% else %}dot-yellow{% endif %}"></span>
+        <span>{{ symbol }}</span>
+        <span class="price">{{ data.price_fmt }}</span>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <section class="why">
+    <div class="container">
+      <h2>Why Choose CryptoVault?</h2>
+      <p>Your all-in-one platform for cryptocurrency information, education, and market insights.</p>
+      <div class="why-grid">
+        <div class="card">
+          <div class="icon-circle">C</div>
+          <h3>Real-Time Prices</h3>
+          <p>Track live cryptocurrency prices and market trends updated every second.</p>
+          <a href="#">See Explained →</a>
+        </div>
+        <div class="card">
+          <div class="icon-circle">✓</div>
+          <h3>Detailed Information</h3>
+          <p>Access data and statistics for hundreds of cryptocurrencies.</p>
+          <a href="{{ url_for('markets') }}">See Explained →</a>
+        </div>
+        <div class="card">
+          <div class="icon-circle">$</div>
+          <h3>Price Alerts</h3>
+          <p>Get notified when your favorite coins reach target prices.</p>
+          <a href="#">See Explained →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+ <section class="markets">
+  <div class="container">
+    <table>
+      <thead>
+        <tr>
+          <th>No</th>
+          <th>Coin</th>
+          <th>Market cap</th>
+          <th>Volume</th>
+          <th>Price</th>
+          <th>24h Change</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for symbol, data in top10.items() %}
+        <tr>
+          <td>{{ loop.index }}</td>
+          <td>{{ symbol }}</td>
+          <td>{{ data.market_cap_fmt }}</td>
+          <td>{{ data.volume_fmt }}</td>
+          <td>{{ data.price_fmt }}</td>
+          <td class="{% if data.change_24h >= 0 %}pos{% else %}neg{% endif %}">
+            {{ "%.2f"|format(data.change_24h) }}%
+          </td>
+          <td>
+            <a href="{{ url_for('coin_detail', symbol=symbol) }}" class="btn-info">Info</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+  <section class="steps">
+    <div class="container steps-inner">
+      <div>
+        <h2>Get Started in 3 Simple Steps</h2>
+        <p>Join millions of users who trust CryptoVault for their cryptocurrency information. Start your journey today with our easy registration process.</p>
+        <a
+          class="btn btn-primary"
+          href="{% if session.get('user') %}{{ url_for('markets') }}{% else %}{{ url_for('login') }}{% endif %}">
+          Get Started
+        </a>
+      </div>
+
+      <div class="steps-cards">
+  <div class="card step-card">
+    <div class="step-icon">
+    <img src="{{ url_for('static', filename='create.png') }}" alt="Create Your Account">
+    </div>
+    <div class="step-text">
+      <h3>Create Your Account</h3>
+      <p>Sign up with your email in just 30 seconds.</p>
+    </div>
+  </div>
+
+  <div class="card step-card">
+    <div class="step-icon">
+    <img src="{{ url_for('static', filename='customize.png') }}" alt="Customize Your Profile">
+    </div>
+    <div class="step-text">
+      <h3>Customize Your Profile</h3>
+      <p>Set your preferences and interests.</p>
+    </div>
+  </div>
+
+  <div class="card step-card">
+    <div class="step-icon">
+    <img src="{{ url_for('static', filename='explore.jpg') }}" alt="Explore & Learn"></div>
+    <div class="step-text">
+      <h3>Explore & Learn</h3>
+      <p>Access market insights and education.</p>
+    </div>
+  </div>
+</div>
+
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-left">
+        <div class="logo">CryptoVault</div>
+        <p>2021 CoinVault. All rights reserved.</p>
+      </div>
+      <div class="footer-links">
+        <a href="{{ url_for('index') }}">Home</a>
+     <a href="{{ url_for('markets') }}">Markets</a>
+      <a href="{{ url_for('help_page') }}">Help</a>
+      </div>
+      <div class="footer-social">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </footer>
+</main>
+</body>
+</html>

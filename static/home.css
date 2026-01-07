@@ -1,0 +1,429 @@
+/* RESET & BASE */
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:#f5f7fb;
+  color:#0f172a;
+}
+.container{
+  width:100%;
+  max-width:1120px;
+  margin:0 auto;
+  padding:0 16px;
+}
+h1,h2,h3{font-weight:600;color:#0f172a;}
+p{color:#6b7280;font-size:14px;line-height:1.6;}
+
+/* NAVBAR */
+.nav{
+  position:sticky;
+  top:0;
+  z-index:10;
+  background:#ffffffdd;
+  backdrop-filter:blur(16px);
+}
+.nav-inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  height:64px;
+}
+.logo{
+  font-weight:700;
+  color:#16a34a;
+}
+.nav-links a{
+  margin:0 12px;
+  font-size:14px;
+  color:#4b5563;
+  text-decoration:none;
+}
+.nav-links a:hover{color:#111827;}
+.nav-actions{
+  display:flex;
+  gap:12px;
+  align-items:center;
+}
+.lang-btn{
+  border:none;
+  background:#f3f4f6;
+  padding:6px 10px;
+  border-radius:999px;
+  font-size:13px;
+  cursor:pointer;
+}
+.btn{
+  border:none;
+  border-radius:999px;
+  padding:10px 20px;
+  font-size:14px;
+  cursor:pointer;
+}
+.btn-primary{
+  background:#16a34a;
+  color:#fff;
+}
+.btn-primary:hover{background:#15803d;}
+
+/* HERO BACKGROUND */
+.hero{
+  padding:72px 0 64px;
+  background:radial-gradient(circle at top,#f9e3ff 0,#f5f7fb 55%,#f5f7fb 100%);
+}
+
+/* ГЛАВЕН НАСЛОВ – СРЕДИНА */
+.hero-main-text{
+  text-align:center;
+  margin-bottom:48px;
+}
+.hero-main-text h1{
+  font-size:36px;
+  line-height:1.3;
+  margin-bottom:10px;
+}
+.hero-main-text p{
+  font-size:14px;
+  color:#6b7280;
+  max-width:540px;
+  margin:0 auto;
+}
+
+/* ДОЛЕН ХЕРО ДЕЛ: Explore + Card */
+.hero-bottom{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:40px;
+}
+
+/* Explore блок лево */
+.hero-explore{
+  text-align:left;
+  max-width:520px;
+}
+.hero-explore h1{
+  font-size:22px;
+  font-weight:600;
+  margin-bottom:8px;
+}
+.hero-explore p{
+  font-size:14.5px;
+  color:#4b5563;
+  margin:0 0 20px 0;
+  line-height:1.7;
+}
+.hero-explore .btn-primary{
+  margin-bottom:22px;
+}
+
+/* Features Icons */
+.hero-icons-title{
+  font-size:13px;
+  font-weight:600;
+  color:#0f172a;
+  margin-bottom:10px;
+}
+.hero-icons{
+  display:flex;
+  justify-content:flex-start;
+  gap:40px;
+  flex-wrap:wrap;
+}
+.hero-icons .icon{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:6px;
+}
+.hero-icons .icon img{
+  width:40px;
+  height:40px;
+  object-fit:contain;
+}
+.hero-icons .icon p{
+  font-size:11px;
+  color:#6b7280;
+  font-weight:500;
+  text-align:center;
+}
+
+/* Market Overview card – десно */
+.hero-card{
+  background:#fff;
+  border-radius:24px;
+  padding:20px 24px;
+  box-shadow:0 24px 60px rgba(15,23,42,0.10);
+  width:320px;
+  text-align:left;
+}
+.hero-card h3{
+  font-size:14px;
+  margin-bottom:12px;
+  color:#6b7280;
+}
+.hero-card ul{
+  list-style:none;
+}
+.hero-card li{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:8px 0;
+  font-size:12px;
+}
+.dot{
+  width:10px;
+  height:10px;
+  border-radius:999px;
+  margin-right:8px;
+  display:inline-block;
+}
+.dot-orange{background:#fb923c;}
+.dot-blue{background:#3b82f6;}
+.dot-yellow{background:#facc15;}
+.hero-card li span:nth-child(2){
+  flex:1;
+  margin-left:4px;
+}
+.price{font-weight:600;}
+
+/* WHY SECTION */
+.why{
+  padding:48px 0;
+}
+.why h2{text-align:center;margin-bottom:8px;}
+.why p{text-align:center;margin-bottom:24px;}
+.why-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:20px;
+}
+
+/* WHY cards – сè во средина */
+.card{
+  background:#fff;
+  border-radius:18px;
+  padding:26px 32px;
+  box-shadow:0 10px 30px rgba(15,23,42,0.04);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+}
+.icon-circle{
+  width:36px;
+  height:36px;
+  border-radius:999px;
+  background:#ecfdf5;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#16a34a;
+  font-weight:600;
+  margin-bottom:14px;
+}
+.card h3{
+  font-size:16.5px;
+  margin-bottom:8px;
+}
+.card p{
+  font-size:15.5px;
+  color:#4b5563;
+}
+.card a{
+  display:inline-block;
+  margin-top:16px;
+  font-size:13px;
+  color:#16a34a;
+  text-decoration:none;
+}
+
+/* TABLE SECTION */
+.markets{
+  padding:32px 0 56px;
+}
+.markets table{
+  width:100%;
+  border-collapse:collapse;
+  background:#fff;
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:0 16px 35px rgba(15,23,42,0.06);
+  font-size:13px;
+}
+.markets thead{
+  background:#f9fafb;
+}
+.markets th,
+.markets td{
+  padding:12px 16px;
+  text-align:left;
+}
+.markets th{
+  font-size:12px;
+  text-transform:uppercase;
+  color:#6b7280;
+}
+.markets tbody tr:nth-child(even){
+  background:#f9fafb;
+}
+.pos{color:#16a34a;font-weight:600;}
+.neg{color:#dc2626;font-weight:600;}
+.btn-info{
+  border:none;
+  background:#e0f2fe;
+  color:#0284c7;
+  padding:6px 12px;
+  border-radius:999px;
+  font-size:12px;
+  cursor:pointer;
+}
+.btn-outline-secondary{
+  background:#fff;
+  color:#4b5563;
+  border:1px solid #d1d5db;
+  border-radius:999px;
+  padding:8px 16px;
+  font-size:14px;
+  cursor:pointer;
+}
+.btn-outline-secondary,
+.btn-outline-secondary:visited,
+.btn-outline-secondary:hover,
+.btn-outline-secondary:active{
+  text-decoration:none;
+}
+
+
+/* STEPS SECTION (Get Started) */
+/* STEPS SECTION (Get Started) */
+/* STEPS SECTION (Get Started) */
+.steps{
+  padding:72px 0 80px;
+}
+.steps-inner{
+  display:flex;
+  gap:80px;
+  align-items:flex-start;
+  justify-content:space-between;
+}
+.steps-inner > div:first-child{
+  max-width:420px;
+}
+.steps-inner > div:first-child h2{
+  font-size:28px;
+  margin-bottom:12px;
+}
+.steps-inner > div:first-child p{
+  font-size:14px;
+  color:#4b5563;
+  margin-bottom:24px;
+}
+
+/* десни картички: ИКОНА ЛЕВО, ТЕКСТ ДЕСНО */
+.steps-cards{
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+  width:460px;
+}
+.step-card{
+  display:flex;                 /* ова е најважно */
+  flex-direction:row;           /* хоризонтално: икона -> текст */
+  align-items:center;
+  gap:20px;
+  background:#ffffff;
+  border-radius:22px;
+  padding:20px 26px;
+  box-shadow:0 22px 55px rgba(15,23,42,0.10);
+}
+
+/* кружна икона лево */
+.step-icon{
+  width:60px;
+  height:60px;
+  border-radius:999px;
+  background:#ecfdf5;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+  overflow:hidden;
+}
+.step-icon img{
+  width:34px;
+  height:34px;
+  object-fit:contain;
+}
+
+/* текст десно, со поголем фонт */
+.step-text{
+  display:flex;
+  flex-direction:column;
+  text-align:left;
+}
+.step-text h3{
+  font-size:17px;          /* поголем наслов */
+  margin-bottom:6px;
+}
+.step-text p{
+  font-size:14.5px;        /* поголем опис */
+  color:#6b7280;
+  line-height:1.6;
+}
+
+
+/* FOOTER */
+.footer{
+  border-top:1px solid #e5e7eb;
+  padding:18px 0;
+  background:#f9fafb;
+}
+.footer-inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:24px;
+  font-size:13px;
+}
+.footer-links a{
+  margin:0 8px;
+  color:#6b7280;
+  text-decoration:none;
+}
+.footer-links a:hover{color:#111827;}
+.footer-social span{
+  display:inline-block;
+  width:18px;
+  height:18px;
+  border-radius:999px;
+  background:#e5e7eb;
+  margin-left:6px;
+}
+
+/* RESPONSIVE */
+@media (max-width:900px){
+  .hero-main-text{
+    margin-bottom:32px;
+    padding:0 8px;
+  }
+  .hero-bottom{
+    flex-direction:column;
+  }
+  .hero-card{
+    width:100%;
+  }
+  .steps-inner{
+    flex-direction:column;
+  }
+  .steps-cards{
+    width:100%;
+  }
+  .why-grid{
+    grid-template-columns:1fr;
+  }
+  .footer-inner{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+}

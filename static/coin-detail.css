@@ -1,0 +1,333 @@
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+/* GLOBAL */
+body{
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:#f5f7fb;
+  color:#0f172a;
+}
+
+.container{
+  width:100%;
+  max-width:1120px;
+  margin:0 auto;
+  padding:0 16px;
+}
+
+/* NAVBAR – ист како другите страници */
+.nav{
+  position:sticky;
+  top:0;
+  z-index:10;
+  background:#ffffffdd;
+  backdrop-filter:blur(16px);
+}
+.nav-inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  height:64px;
+}
+.logo{
+  font-weight:700;
+  color:#16a34a;
+}
+.nav-links a{
+  margin:0 12px;
+  font-size:14px;
+  color:#4b5563;
+  text-decoration:none;
+}
+.nav-links a:hover{
+  color:#111827;
+}
+.nav-actions{
+  display:flex;
+  gap:12px;
+  align-items:center;
+}
+.lang-btn{
+  border:none;
+  background:#f3f4f6;
+  padding:6px 10px;
+  border-radius:999px;
+  font-size:13px;
+  cursor:pointer;
+}
+.btn{
+  border:none;
+  border-radius:999px;
+  padding:8px 18px;
+  font-size:14px;
+  cursor:pointer;
+}
+.btn-primary{
+  background:#16a34a;
+  color:#fff;
+}
+.btn-primary:hover{
+  background:#15803d;
+}
+.btn-outline-secondary{
+  background:#fff;
+  color:#4b5563;
+  border:1px solid #d1d5db;
+  border-radius:999px;
+  padding:8px 16px;
+  font-size:14px;
+  cursor:pointer;
+}
+.nav-username{
+  font-size:14px;
+  color:#374151;
+  text-decoration:none;
+}
+.nav-username:hover{
+  text-decoration:underline;
+}
+
+/* PAGE LAYOUT */
+.coin-page{
+  padding-bottom:72px;
+}
+.coin-hero{
+  padding:72px 0 32px;
+  background:radial-gradient(circle at top,#f9e3ff 0,#f5f7fb 55%,#f5f7fb 100%);
+}
+
+/* TOP HEADER CARD */
+.coin-header-card{
+  background:#ffffff;
+  border-radius:18px;
+  padding:16px 20px;
+  box-shadow:0 16px 40px rgba(15,23,42,0.08);
+  margin-bottom:12px;
+}
+.coin-header-top{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:24px;
+}
+.coin-pair{
+  font-size:18px;
+  font-weight:600;
+}
+.pair-quote{
+  font-size:14px;
+  color:#6b7280;
+}
+.coin-price-row{
+  display:flex;
+  align-items:baseline;
+  gap:8px;
+  margin-top:6px;
+}
+.price-main{
+  font-size:28px;
+  font-weight:600;
+}
+.price-change{
+  font-size:13px;
+  padding:3px 8px;
+  border-radius:999px;
+  background:#ecfdf5;
+  color:#16a34a;
+}
+
+/* 1h / 7d / 30d */
+.coin-changes{
+  display:flex;
+  gap:16px;
+}
+.change-block{
+  text-align:right;
+}
+.change-label{
+  font-size:12px;
+  color:#6b7280;
+}
+.change-value{
+  font-size:13px;
+  font-weight:500;
+}
+.change-value.pos{color:#16a34a;}
+.change-value.neg{color:#dc2626;}
+
+/* BODY GRID */
+.coin-body{
+  margin-top:8px;
+  display:grid;
+  grid-template-columns:2fr 1.1fr;
+  gap:20px;
+}
+.second-row{
+  margin-top:16px;
+}
+
+/* GENERIC CARD */
+.card-block{
+  background:#ffffff;
+  border-radius:18px;
+  padding:18px 20px;
+  box-shadow:0 16px 40px rgba(15,23,42,0.08);
+}
+
+/* card header */
+.card-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:8px;
+}
+.section-title{
+  font-size:14px;
+  font-weight:600;
+  color:#0f172a;
+}
+
+/* RANGE BUTTONS */
+.range-buttons{
+  display:flex;
+  gap:6px;
+}
+.range-btn{
+  border:1px solid #d1d5db;
+  background:#ffffff;
+  color:#4b5563;
+  border-radius:999px;
+  padding:4px 10px;
+  font-size:11px;
+  cursor:pointer;
+}
+.range-btn.active{
+  background:#111827;
+  color:#ffffff;
+  border-color:#111827;
+}
+
+/* CHART BOX */
+.chart-box{
+  height:260px;
+}
+
+/* MARKET STATS RIGHT CARD */
+.stats-card{
+  font-size:13px;
+}
+.stat-row{
+  display:flex;
+  justify-content:space-between;
+  padding:6px 0;
+  border-bottom:1px solid #e5e7eb;
+}
+.stat-row:last-child{
+  border-bottom:none;
+}
+.stat-label{
+  color:#6b7280;
+}
+.stat-value{
+  font-weight:500;
+}
+
+/* MARKET OVERVIEW */
+.mb-8{margin-bottom:8px;}
+.overview-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:10px;
+}
+.overview-card{
+  border-radius:14px;
+  padding:10px 12px;
+}
+.overview-label{
+  font-size:12px;
+  color:#4b5563;
+  margin-bottom:2px;
+}
+.overview-value{
+  font-size:14px;
+  font-weight:600;
+}
+.overview-card.green{background:#ecfdf5;}
+.overview-card.rose{background:#ffe4e6;}
+.overview-card.indigo{background:#eef2ff;}
+.overview-card.violet{background:#fdf2ff;}
+
+/* ATH / ATL */
+.ath-atl{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+.ath-card,
+.atl-card{
+  border-radius:16px;
+  padding:14px 16px;
+}
+.ath-card{background:#ecfdf5;}
+.atl-card{background:#fef2f2;}
+.ath-value{
+  font-size:18px;
+  font-weight:600;
+  margin-bottom:4px;
+}
+.ath-text{
+  font-size:12px;
+  color:#6b7280;
+}
+
+/* FOOTER – ист како home */
+.footer{
+  border-top:1px solid #e5e7eb;
+  padding:18px 0;
+  background:#f9fafb;
+}
+.footer-inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:24px;
+  font-size:13px;
+}
+.footer-links a{
+  margin:0 8px;
+  color:#6b7280;
+  text-decoration:none;
+}
+.footer-links a:hover{
+  color:#111827;
+}
+.footer-social span{
+  display:inline-block;
+  width:18px;
+  height:18px;
+  border-radius:999px;
+  background:#e5e7eb;
+  margin-left:6px;
+}
+
+/* RESPONSIVE */
+@media (max-width:900px){
+  .coin-header-top{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+  .coin-body,
+  .second-row{
+    grid-template-columns:1fr;
+  }
+  .ath-atl{
+    flex-direction:row;
+  }
+  .footer-inner{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+}

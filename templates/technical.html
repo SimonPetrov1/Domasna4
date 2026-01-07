@@ -1,0 +1,28 @@
+<h1>Technical Analysis for {{ symbol }}</h1>
+
+<h2>Latest Signals</h2>
+<table border="1">
+    <tr>
+        {% for col in latest_signals.columns %}
+        <th>{{ col }}</th>
+        {% endfor %}
+    </tr>
+    {% for row in latest_signals.itertuples() %}
+    <tr>
+        {% for val in row[1:] %}
+        <td>{{ val }}</td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
+</table>
+
+<h2>Graphs</h2>
+{% for tf, img in plots.items() %}
+<h3>{{ tf }} timeframe (Price + RSI)</h3>
+<img src="data:image/png;base64,{{ img }}" />
+{% endfor %}
+
+{% if macd_img %}
+<h3>MACD + Signal (1D)</h3>
+<img src="data:image/png;base64,{{ macd_img }}" />
+{% endif %}

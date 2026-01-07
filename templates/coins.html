@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>CryptoVault – Markets</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='market.css') }}">
+  <style>
+    .filter-card {
+      background:#fff;
+      border-radius:14px;
+      box-shadow:0 18px 40px rgba(15,23,42,0.06);
+      padding:20px;
+      margin-bottom:20px;
+    }
+    .filter-row{
+    display:flex;
+    gap:16px;
+    flex-wrap:nowrap;
+    align-items:flex-end;
+    padding-right:8px;
+    }
+
+    .filter-item{
+    display:flex;
+    flex-direction:column;
+    min-width:100px;
+    }
+
+    .filter-item label{
+      font-size:12px;
+      color:#6b7280;
+      margin-bottom:4px;
+    }
+    .filter-item input,
+    .filter-item select {
+      padding:4px 8px;
+      border-radius:6px;
+      border:1px solid #d1d5db;
+      font-size:12px;
+      background:#fff;
+      height:28px;
+    }
+    .filter-btn{
+      height:38px;
+      padding:0 22px;
+      margin-left:auto;
+    }
+    .market-showing{
+      display:flex;
+      justify-content:flex-start;
+      align-items:center;
+      margin:12px 0 0;
+      font-size:13px;
+      color:#6b7280;
+    }
+    .under-table{
+      margin-top:12px;
+    }
+    .pagination-wrapper{
+      margin-top:12px;
+      display:flex;
+      justify-content:center;
+    }
+    .pagination {
+      display:flex;
+      gap:6px;
+      list-style:none;
+    }
+    .pagination .page-item .page-link {
+      border-radius:999px;
+      padding:4px 10px;
+      font-size:13px;
+      color:#111827;
+      text-decoration:none;
+      border:1px solid #e5e7eb;
+      display:inline-block;
+    }
+    .pagination .page-item.active .page-link {
+      background:#16a34a;
+      border-color:#16a34a;
+      color:#fff;
+    }
+    .pagination .page-item.disabled .page-link {
+      opacity:0.5;
+      pointer-events:none;
+    }
+
+    /* Trending cards – пошироки за да не се гмечи цената */
+    .trending-cards{
+      display:flex;
+      gap:16px;
+    }
+    .trend-card{
+      flex:1;
+      min-width:230px;
+      padding:14px 18px;
+    }
+    .trend-price{
+      margin-left:auto;
+      font-size:14px;
+      font-weight:600;
+    }
+  </style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="container nav-inner">
+    <div class="logo">CryptoVault</div>
+    <nav class="nav-links">
+      <a href="{{ url_for('index') }}">Home</a>
+     <a href="{{ url_for('markets') }}">Markets</a>
+      <a href="{{ url_for('help_page') }}">Help</a>
+    </nav>
+  <div class="nav-actions">
+  <button class="lang-btn">EN ▾</button>
+
+  {% if session.get('user') %}
+    <a href="{{ url_for('profile') }}" class="nav-username">
+      Hi, {{ session['user'] }}
+    </a>
+    <a class="btn btn-outline-secondary" href="{{ url_for('logout') }}">Logout</a>
+  {% else %}
+    <a class="btn btn-primary" href="{{ url_for('login') }}">Login</a>
+  {% endif %}
+</div>
+
+  </div>
+</header>
+
+<main class="market-page">
+
+  <!-- HERO / HEADER -->
+  <section class="market-hero">
+    <div class="container-md">
+      <div class="hero-top">
+        <div class="hero-title-block">
+          <h1>Today's Cryptocurrency Prices</h1>
+          <p>Track and analyze the crypto market in real-time.</p>
+        </div>
+
+        <div class="hero-stats">
+          <div class="hero-stat-card">
+            <span class="stat-label">Market cap</span>
+            <span class="stat-value">{{ total_market_cap }}</span>
+            <span class="stat-change pos">Total</span>
+          </div>
+
+          <div class="hero-stat-card">
+            <span class="stat-label">24h Volume</span>
+            <span class="stat-value">{{ total_volume }}</span>
+            <span class="stat-change pos">Total</span>
+          </div>
+
+          <div class="hero-stat-card">
+            <span class="stat-label">Active Coins</span>
+            <span class="stat-value">{{ total }}</span>
+            <span class="stat-change">Tracking</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Trending cards -->
+      <div class="hero-trending">
+        <div class="trending-title">
+          <span class="dot dot-orange"></span>
+          <span>Trending</span>
+        </div>
+
+        <div class="trending-cards">
+
+          <div class="trend-card">
+            <div class="trend-coin">
+              <div class="trend-icon"></div>
+              <div>
+                <div class="trend-name">Bitcoin</div>
+                <div class="trend-symbol">BTC</div>
+              </div>
+            </div>
+            <div class="trend-price">{{ btc_price or '-' }}</div>
+            <div class="trend-change pos">24h</div>
+          </div>
+
+          <div class="trend-card">
+            <div class="trend-coin">
+              <div class="trend-icon trend-eth"></div>
+              <div>
+                <div class="trend-name">Ethereum</div>
+                <div class="trend-symbol">ETH</div>
+              </div>
+            </div>
+            <div class="trend-price">{{ eth_price or '-' }}</div>
+            <div class="trend-change pos">24h</div>
+          </div>
+
+          <div class="trend-card">
+            <div class="trend-coin">
+              <div class="trend-icon trend-sol"></div>
+              <div>
+                <div class="trend-name">Solana</div>
+                <div class="trend-symbol">SOL</div>
+              </div>
+            </div>
+            <div class="trend-price">{{ sol_price or '-' }}</div>
+            <div class="trend-change pos">24h</div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FILTERS -->
+  <section class="market-filters">
+    <div class="container-md">
+
+      <div class="filter-card">
+        <form class="filter-row" method="get">
+
+          <div class="filter-item">
+            <label>Search</label>
+            <input name="q" placeholder="Search coin" value="{{ query }}">
+          </div>
+
+          <div class="filter-item">
+            <label>Min price</label>
+            <input name="min_price" placeholder="0" value="{{ min_price }}">
+          </div>
+
+          <div class="filter-item">
+            <label>Max price</label>
+            <input name="max_price" placeholder="0" value="{{ max_price }}">
+          </div>
+
+          <div class="filter-item">
+            <label>Min volume</label>
+            <input name="min_vol" placeholder="0" value="{{ min_vol }}">
+          </div>
+
+          <div class="filter-item">
+            <label>Sort</label>
+            <select name="sort">
+              <option value="price" {% if sort=='price' %}selected{% endif %}>Price</option>
+              <option value="volume" {% if sort=='volume' %}selected{% endif %}>Volume</option>
+            </select>
+          </div>
+
+          <div class="filter-item">
+            <label>Dir</label>
+            <select name="dir">
+              <option value="desc" {% if direction=='desc' %}selected{% endif %}>Desc</option>
+              <option value="asc" {% if direction=='asc' %}selected{% endif %}>Asc</option>
+            </select>
+          </div>
+
+          <button class="btn btn-primary filter-btn">Apply</button>
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- TABLE -->
+  <section class="market-table-section">
+    <div class="container-md">
+
+      <div class="market-table-card">
+        <table class="table mb-0">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Coin</th>
+              <th>Price</th>
+              <th>Market cap</th>
+              <th>Volume</th>
+              <th>24h Change</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for s in symbols %}
+            <tr>
+              <td>{{ (page - 1) * per_page + loop.index }}</td>
+              <td>{{ s }}</td>
+              <td>{{ stats[s].price_fmt }}</td>
+              <td>${{ stats[s].market_cap_fmt }}</td>
+              <td>{{ stats[s].volume_fmt }}</td>
+              <td class="{% if stats[s].change_24h >= 0 %}text-success{% else %}text-danger{% endif %}">
+                {{ "%.2f"|format(stats[s].change_24h) }}%
+              </td>
+              <td>
+                <a href="{{ url_for('coin_detail', symbol=s) }}" class="info-btn">Info</a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="market-showing under-table">
+        Showing
+        {{ (page - 1) * per_page + 1 }}
+        to
+        {{ (page - 1) * per_page + symbols|length }}
+        of
+        {{ total }} coins
+      </div>
+
+      <!-- PAGINATION -->
+      <nav class="pagination-wrapper" aria-label="Coins pages">
+        <ul class="pagination">
+
+          <li class="page-item {% if page <= 1 %}disabled{% endif %}">
+            <a class="page-link"
+               href="{{ url_for('markets', page=page-1, q=query, sort=sort, dir=direction,
+                                min_vol=min_vol, min_price=min_price, max_price=max_price) }}">
+              Previous
+            </a>
+          </li>
+
+          {% set start_page = page - 2 %}
+          {% set end_page   = page + 2 %}
+
+          {% if start_page < 1 %}
+            {% set start_page = 1 %}
+            {% set end_page = 5 %}
+          {% endif %}
+
+          {% if end_page > total_pages %}
+            {% set end_page = total_pages %}
+            {% set start_page = total_pages - 4 %}
+            {% if start_page < 1 %}
+              {% set start_page = 1 %}
+            {% endif %}
+          {% endif %}
+
+          {% for p in range(start_page, end_page + 1) %}
+            <li class="page-item {% if p == page %}active{% endif %}">
+              <a class="page-link"
+                 href="{{ url_for('markets', page=p, q=query, sort=sort, dir=direction,
+                                  min_vol=min_vol, min_price=min_price, max_price=max_price) }}">
+                {{ p }}
+              </a>
+            </li>
+          {% endfor %}
+
+          <li class="page-item {% if page >= total_pages %}disabled{% endif %}">
+            <a class="page-link"
+               href="{{ url_for('markets', page=page+1, q=query, sort=sort, dir=direction,
+                                min_vol=min_vol, min_price=min_price, max_price=max_price) }}">
+              Next
+            </a>
+          </li>
+
+        </ul>
+      </nav>
+
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <div class="footer-left">
+      <div class="logo">CryptoVault</div>
+      <p>2021 CoinVault. All rights reserved.</p>
+    </div>
+
+    <div class="footer-links">
+      <a href="{{ url_for('index') }}">Home</a>
+      <a href="{{ url_for('markets') }}">Markets</a>
+      <a href="{{ url_for('help_page') }}">Help</a>
+    </div>
+
+    <div class="footer-social">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

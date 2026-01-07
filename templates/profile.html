@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>CryptoVault - Profile</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='profile.css') }}">
+</head>
+<body>
+
+  <!-- HEADER / NAVBAR -->
+  <header class="nav">
+    <div class="container nav-inner">
+      <div class="logo">CryptoVault</div>
+
+      <nav class="nav-links">
+        <a href="{{ url_for('index') }}">Home</a>
+        <a href="{{ url_for('markets') }}">Markets</a>
+        <a href="{{ url_for('help_page') }}">Help</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="lang-btn">EN ▾</button>
+
+        {% if session.get('user') %}
+          <a href="{{ url_for('profile') }}" class="nav-username">
+            Hi, {{ session['user'] }}
+          </a>
+          <a class="btn btn-outline-secondary" href="{{ url_for('logout') }}">Logout</a>
+        {% else %}
+          <a class="btn btn-primary" href="{{ url_for('login') }}">Login</a>
+        {% endif %}
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="profile-page">
+    <section class="profile-hero">
+      <div class="container">
+        <h1>Profile</h1>
+        <p>Manage your account details and change your password.</p>
+      </div>
+    </section>
+
+    <section class="profile-section">
+      <div class="container">
+        <div class="profile-card">
+          <p class="profile-username">
+            Username: <strong>{{ username }}</strong>
+          </p>
+
+          {% if message %}
+            <div class="profile-message">{{ message }}</div>
+          {% endif %}
+
+          <form method="post" class="profile-form">
+            <div class="profile-row">
+              <label>Current password</label>
+              <input type="password" name="old_password" required>
+            </div>
+
+            <div class="profile-row">
+              <label>New password</label>
+              <input type="password" name="new_password" required>
+            </div>
+
+            <div class="profile-row">
+              <label>Confirm new password</label>
+              <input type="password" name="confirm_password" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Change password</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+   <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-left">
+        <div class="logo">CryptoVault</div>
+        <p>2021 CoinVault. All rights reserved.</p>
+      </div>
+      <div class="footer-links">
+        <a href="{{ url_for('index') }}">Home</a>
+     <a href="{{ url_for('markets') }}">Markets</a>
+      <a href="{{ url_for('help_page') }}">Help</a>
+      </div>
+      <div class="footer-social">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

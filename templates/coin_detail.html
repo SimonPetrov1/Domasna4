@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>CryptoVault - {{ symbol }} details</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='coin-detail.css') }}">
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="nav">
+    <div class="container nav-inner">
+      <div class="logo">CryptoVault</div>
+
+      <nav class="nav-links">
+        <a href="{{ url_for('index') }}">Home</a>
+        <a href="{{ url_for('markets') }}">Markets</a>
+        <a href="{{ url_for('help_page') }}">Help</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="lang-btn">EN ▾</button>
+        {% if session.get('user') %}
+          <a href="{{ url_for('profile') }}" class="nav-username">
+            Hi, {{ session['user'] }}
+          </a>
+          <a class="btn btn-outline-secondary" href="{{ url_for('logout') }}">Logout</a>
+        {% else %}
+          <a class="btn btn-primary" href="{{ url_for('login') }}">Login</a>
+        {% endif %}
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main class="coin-page">
+    <section class="coin-hero">
+      <div class="container">
+
+        <!-- TOP HEADER CARD -->
+        <div class="coin-header-card">
+          <div class="coin-header-top">
+            <div>
+              <div class="coin-pair">
+                {{ symbol }} <span class="pair-quote">/ USD</span>
+              </div>
+              <div class="coin-price-row">
+                <div class="price-main">
+                  ${{ "%.2f"|format(last.close) }}
+                </div>
+                <div class="price-change">
+                  +1.02%
+                </div>
+              </div>
+            </div>
+
+            <div class="coin-changes">
+              <div class="change-block">
+                <div class="change-label">1h</div>
+                <div class="change-value {% if change_1h >= 0 %}pos{% else %}neg{% endif %}">
+                  {{ "%.2f"|format(change_1h) }}%
+                </div>
+              </div>
+              <div class="change-block">
+                <div class="change-label">7d</div>
+                <div class="change-value {% if change_7d >= 0 %}pos{% else %}neg{% endif %}">
+                  {{ "%.2f"|format(change_7d) }}%
+                </div>
+              </div>
+              <div class="change-block">
+                <div class="change-label">30d</div>
+                <div class="change-value {% if change_30d >= 0 %}pos{% else %}neg{% endif %}">
+                  {{ "%.2f"|format(change_30d) }}%
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FIRST ROW: CHART + MARKET STATS -->
+        <div class="coin-body">
+          <!-- LEFT: CHART -->
+          <div class="card-block">
+            <div class="card-head">
+              <div class="section-title">Price chart</div>
+              <div class="range-buttons" id="range-buttons">
+                <button type="button" class="range-btn active" data-range="24h">24H</button>
+                <button type="button" class="range-btn" data-range="7d">7D</button>
+                <button type="button" class="range-btn" data-range="1m">1M</button>
+                <button type="button" class="range-btn" data-range="3m">3M</button>
+                <button type="button" class="range-btn" data-range="1y">1Y</button>
+                <button type="button" class="range-btn" data-range="all">ALL</button>
+              </div>
+            </div>
+            <div id="price-chart" class="chart-box"></div>
+          </div>
+
+          <!-- RIGHT: MARKET STATISTICS -->
+          <aside class="card-block stats-card">
+            <div class="section-title">Market statistics</div>
+
+            <div class="stat-row">
+              <span class="stat-label">Open</span>
+              <span class="stat-value">${{ "%.2f"|format(last.open) }}</span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-label">High</span>
+              <span class="stat-value">${{ "%.2f"|format(last.high) }}</span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-label">Low</span>
+              <span class="stat-value">${{ "%.2f"|format(last.low) }}</span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-label">Close</span>
+              <span class="stat-value">${{ "%.2f"|format(last.close) }}</span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-label">Volume</span>
+              <span class="stat-value">${{ "%.2f"|format(last.volume) }}</span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-label">Last price</span>
+              <span class="stat-value">${{ "%.2f"|format(last.close) }}</span>
+            </div>
+          </aside>
+        </div>
+
+        {% set max_close = (rows | map(attribute='close') | max) %}
+        {% set min_close = (rows | map(attribute='close') | min) %}
+
+        <!-- SECOND ROW: MARKET OVERVIEW + ATH/ATL -->
+        <div class="coin-body second-row">
+          <!-- LEFT: MARKET OVERVIEW -->
+          <div class="card-block">
+            <div class="section-title mb-8">Market overview</div>
+            <div class="overview-grid">
+              <div class="overview-card green">
+                <div class="overview-label">Trading volume</div>
+                <div class="overview-value">${{ trading_vol_fmt }}</div>
+              </div>
+              <div class="overview-card rose">
+                <div class="overview-label">Market cap</div>
+                <div class="overview-value">${{ market_cap_fmt }}</div>
+              </div>
+              <div class="overview-card indigo">
+                <div class="overview-label">Range</div>
+                <div class="overview-value">${{ range_value }}</div>
+              </div>
+              <div class="overview-card violet">
+                <div class="overview-label">Close</div>
+                <div class="overview-value">${{ close_fmt }}</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT: ATH / ATL -->
+          <aside class="ath-atl">
+            <div class="ath-card">
+              <div class="section-title mb-4">All‑time high</div>
+              <div class="ath-value">${{ "%.2f"|format(max_close) }}</div>
+              <div class="ath-text">Highest close price in history</div>
+            </div>
+
+            <div class="atl-card">
+              <div class="section-title mb-4">All‑time low</div>
+              <div class="ath-value">${{ "%.2f"|format(min_close) }}</div>
+              <div class="ath-text">Lowest close price in history</div>
+            </div>
+          </aside>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-left">
+        <div class="logo">CryptoVault</div>
+        <p>2021 CoinVault. All rights reserved.</p>
+      </div>
+
+      <div class="footer-links">
+        <a href="{{ url_for('index') }}">Home</a>
+        <a href="{{ url_for('markets') }}">Markets</a>
+        <a href="{{ url_for('help_page') }}">Help</a>
+      </div>
+
+      <div class="footer-social">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const fullData = {{ chart_data|safe }};
+
+    function filterRange(range) {
+      const dates = fullData.dates;
+      const prices = fullData.prices;
+      const n = dates.length;
+      if (n === 0) return {x: [], y: []};
+
+      const lastDate = new Date(dates[n - 1]);
+      let fromDate = new Date(dates[0]);
+
+      if (range === '24h') {
+        fromDate = new Date(lastDate);
+        fromDate.setDate(fromDate.getDate() - 1);
+      } else if (range === '7d') {
+        fromDate = new Date(lastDate);
+        fromDate.setDate(fromDate.getDate() - 7);
+      } else if (range === '1m') {
+        fromDate = new Date(lastDate);
+        fromDate.setMonth(fromDate.getMonth() - 1);
+      } else if (range === '3m') {
+        fromDate = new Date(lastDate);
+        fromDate.setMonth(fromDate.getMonth() - 3);
+      } else if (range === '1y') {
+        fromDate = new Date(lastDate);
+        fromDate.setFullYear(fromDate.getFullYear() - 1);
+      } else if (range === 'all') {
+        return {x: dates, y: prices};
+      }
+
+      const x = [];
+      const y = [];
+      for (let i = 0; i < n; i++) {
+        const d = new Date(dates[i]);
+        if (d >= fromDate && d <= lastDate) {
+          x.push(dates[i]);
+          y.push(prices[i]);
+        }
+      }
+      return {x, y};
+    }
+
+    function draw(range) {
+      const d = filterRange(range);
+      const trace = {
+        x: d.x,
+        y: d.y,
+        type: 'scatter',
+        mode: 'lines',
+        line: {color: '#16a34a'}
+      };
+      Plotly.newPlot('price-chart', [trace], {
+        margin: {t: 10, r: 10, l: 40, b: 40}
+      });
+    }
+
+    draw('all');
+
+    document.getElementById('range-buttons').addEventListener('click', (e) => {
+      const btn = e.target.closest('button[data-range]');
+      if (!btn) return;
+      document.querySelectorAll('#range-buttons .range-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      draw(btn.dataset.range);
+    });
+  </script>
+</body>
+</html>
