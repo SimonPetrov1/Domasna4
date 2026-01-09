@@ -1,0 +1,283 @@
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+/* GLOBAL */
+body{
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:#f5f7fb;
+  color:#0f172a;
+}
+
+.container{
+  width:100%;
+  max-width:1120px;
+  margin:0 auto;
+  padding:0 16px;
+}
+
+/* NAVBAR – за сите страници исто */
+.nav{
+  position:sticky;
+  top:0;
+  z-index:10;
+  background:#ffffffdd;
+  backdrop-filter:blur(16px);
+}
+
+.nav-inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  height:64px;
+}
+
+.logo{
+  font-weight:700;
+  color:#16a34a;
+}
+
+.nav-links a{
+  margin:0 12px;
+  font-size:14px;
+  color:#4b5563;
+  text-decoration:none;
+}
+
+.nav-links a:hover{
+  color:#111827;
+}
+
+.nav-actions{
+  display:flex;
+  gap:12px;
+  align-items:center;
+}
+
+.lang-btn{
+  border:none;
+  background:#f3f4f6;
+  padding:6px 10px;
+  border-radius:999px;
+  font-size:13px;
+  cursor:pointer;
+}
+
+.btn{
+  border:none;
+  border-radius:999px;
+  padding:8px 18px;
+  font-size:14px;
+  cursor:pointer;
+}
+
+/* зелено primary */
+.btn-primary{
+  background:#16a34a;
+  color:#fff;
+}
+.btn-primary:hover{
+  background:#15803d;
+}
+
+/* бел Logout */
+.btn-outline-secondary{
+  background:#fff;
+  color:#4b5563;
+  border:1px solid #d1d5db;
+  border-radius:999px;
+  padding:8px 16px;
+  font-size:14px;
+  cursor:pointer;
+}
+
+.nav-username{
+  font-size:14px;
+  color:#374151;
+  text-decoration:none;
+}
+.nav-username:hover{
+  text-decoration:underline;
+}
+.lang-btn{
+  border:none;
+  background:#f3f4f6;
+  padding:6px 10px;
+  border-radius:999px;
+  font-size:13px;
+  cursor:pointer;
+}
+
+.btn{
+  border:none;
+  border-radius:999px;
+  padding:8px 18px;
+  font-size:14px;
+  cursor:pointer;
+}
+
+.btn-primary{
+  background:#2563eb;
+  color:#fff;
+}
+
+.btn-primary:hover{
+  background:#1d4ed8;
+}
+
+.btn-outline-secondary{
+  background:#fff;
+  color:#4b5563;
+  border:1px solid #d1d5db;
+  border-radius:999px;
+  padding:8px 16px;
+  font-size:14px;
+  cursor:pointer;
+}
+.btn-outline-secondary,
+.btn-outline-secondary:visited,
+.btn-outline-secondary:hover,
+.btn-outline-secondary:active{
+  text-decoration:none;
+}
+
+.nav-username{
+  font-size:14px;
+  color:#374151;
+  text-decoration:none;
+}
+
+.nav-username:hover{
+  text-decoration:underline;
+}
+
+/* PROFILE PAGE */
+.profile-page{
+  padding-bottom:110px;   /* малку помало за footer да дојде погоре */
+}
+
+.profile-hero{
+  padding:72px 0 24px;
+  background:radial-gradient(circle at top,#f9e3ff 0,#f5f7fb 55%,#f5f7fb 100%);
+}
+
+.profile-hero h1{
+  font-size:32px;
+  margin-bottom:6px;
+}
+
+.profile-hero p{
+  font-size:14px;
+  color:#6b7280;
+}
+
+.profile-section{
+  padding:8px 0 40px;
+}
+
+.profile-card{
+  max-width:520px;
+  margin:10px auto;
+  background:#ffffff;
+  border-radius:18px;
+  padding:22px 24px 24px;
+  box-shadow:0 12px 32px rgba(15,23,42,0.08);
+}
+
+.profile-username{
+  font-size:14px;
+  margin-bottom:16px;
+  color:#4b5563;
+}
+
+.profile-form{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.profile-row{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+}
+
+.profile-row label{
+  font-size:13px;
+  color:#6b7280;
+}
+
+.profile-row input{
+  padding:8px 10px;
+  border-radius:10px;
+  border:1px solid #d1d5db;
+  font-size:14px;
+}
+
+.profile-message{
+  margin-bottom:10px;
+  font-size:13px;
+  color:#16a34a;
+}
+
+
+/* FOOTER */
+.footer{
+  border-top:1px solid #e5e7eb;
+  padding:18px 0;
+  background:#f9fafb;
+}
+.footer-inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:24px;
+  font-size:13px;
+}
+.footer-links a{
+  margin:0 8px;
+  color:#6b7280;
+  text-decoration:none;
+}
+.footer-links a:hover{color:#111827;}
+.footer-social span{
+  display:inline-block;
+  width:18px;
+  height:18px;
+  border-radius:999px;
+  background:#e5e7eb;
+  margin-left:6px;
+}
+
+/* RESPONSIVE */
+@media (max-width:900px){
+  .hero-main-text{
+    margin-bottom:32px;
+    padding:0 8px;
+  }
+  .hero-bottom{
+    flex-direction:column;
+  }
+  .hero-card{
+    width:100%;
+  }
+  .steps-inner{
+    flex-direction:column;
+  }
+  .steps-cards{
+    width:100%;
+  }
+  .why-grid{
+    grid-template-columns:1fr;
+  }
+  .footer-inner{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+}
+/* мал padding под main за да не бега footer-от долу */
+.profile-page{
+  padding-bottom:10px;
+}

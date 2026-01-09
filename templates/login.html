@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>CryptoVault - Login</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
+</head>
+<body>
+
+  <!-- HEADER / NAVBAR -->
+  <header class="nav">
+  <div class="container nav-inner">
+    <div class="logo">CryptoVault</div>
+    <nav class="nav-links">
+      <a href="{{ url_for('index') }}">Home</a>
+     <a href="{{ url_for('markets') }}">Markets</a>
+      <a href="{{ url_for('help_page') }}">Help</a>
+    </nav>
+  <div class="nav-actions">
+  <button class="lang-btn">EN ▾</button>
+
+  {% if session.get('user') %}
+    <a href="{{ url_for('profile') }}" class="nav-username">
+      Hi, {{ session['user'] }}
+    </a>
+    <a class="btn btn-outline-secondary" href="{{ url_for('logout') }}">Logout</a>
+  {% else %}
+    <a class="btn btn-primary" href="{{ url_for('login') }}">Login</a>
+  {% endif %}
+</div>
+
+  </div>
+</header>
+
+  <main class="login-page">
+  <section class="login-hero">
+    <div class="container">
+      <h1>Login</h1>
+      <p>Access your CryptoVault account to explore the market.</p>
+    </div>
+  </section>
+
+  <section class="login-section">
+    <div class="container">
+      <div class="login-card">
+        <h2 class="login-title">Sign in</h2>
+
+        {% if error %}
+          <div class="login-message">{{ error }}</div>
+        {% endif %}
+
+        <form method="post" class="login-form">
+          <div class="login-row">
+            <label>Username</label>
+            <input name="username" required>
+          </div>
+
+          <div class="login-row">
+            <label>Password</label>
+            <input name="password" type="password" required>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width:100%; margin-top:8px;">
+            Login
+          </button>
+
+          <p style="margin-top:10px; font-size:13px; color:#6b7280;">
+            Don't have an account?
+            <a href="{{ url_for('register') }}" style="color:#2563eb; text-decoration:underline;">
+              Register
+            </a>
+          </p>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-left">
+        <div class="logo">CryptoVault</div>
+        <p>2021 CoinVault. All rights reserved.</p>
+      </div>
+      <div class="footer-links">
+        <a href="{{ url_for('index') }}">Home</a>
+     <a href="{{ url_for('markets') }}">Markets</a>
+      <a href="{{ url_for('help_page') }}">Help</a>
+      </div>
+      <div class="footer-social">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

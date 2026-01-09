@@ -1,0 +1,33 @@
+<h1>On-Chain Analysis – {{ symbol }}</h1>
+
+{% if not supported %}
+<p style="color:red;">
+On-chain analysis is available only for major Layer-1 blockchains:
+BTC, ETH, SOL, BNB, ADA.
+</p>
+{% else %}
+
+<table border="1" cellpadding="6">
+<tr><th>Metric</th><th>Value</th></tr>
+<tr><td>Price</td><td>{{ data.price }}</td></tr>
+<tr><td>Volume</td><td>{{ data.volume }}</td></tr>
+<tr><td>Market Cap</td><td>{{ data.market_cap }}</td></tr>
+<tr><td>Active Addresses</td><td>{{ data.active_addresses }}</td></tr>
+<tr><td>Transactions</td><td>{{ data.transactions }}</td></tr>
+<tr><td>Exchange Flows</td><td>{{ data.exchange_flows }}</td></tr>
+<tr><td>Whale Movements</td><td>{{ data.whale_movements }}</td></tr>
+<tr><td>TVL</td><td>{{ data.tvl }}</td></tr>
+<tr><td>NVT Ratio</td><td>{{ data.nvt }}</td></tr>
+<tr><td>MVRV Ratio</td><td>{{ data.mvrv }}</td></tr>
+<tr><td>Sentiment Score</td><td>{{ data.sentiment }}</td></tr>
+</table>
+
+{% if data.sentiment > 0.05 %}
+<p><b>Market Sentiment:</b> Positive 🟢</p>
+{% elif data.sentiment < -0.05 %}
+<p><b>Market Sentiment:</b> Negative 🔴</p>
+{% else %}
+<p><b>Market Sentiment:</b> Neutral 🟡</p>
+{% endif %}
+
+{% endif %}

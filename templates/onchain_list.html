@@ -1,0 +1,12 @@
+<h1>Available On-Chain Analyses</h1>
+
+<ul>
+    {% for coin, name in ONCHAIN_SUPPORTED_COINS.items() %}
+    <li>
+        <a href="/onchain/{{ coin }}">{{ name|capitalize }} ({{ coin }})</a>
+        {% if coin not in REAL_ONCHAIN_COINS %}
+        <span style="color:orange;">[Proxy]</span>
+        {% endif %}
+    </li>
+    {% endfor %}
+</ul>
